@@ -1,0 +1,40 @@
+;---------------------------------------------------
+; Programa: Contador decrescente e crescente
+; Autor: Nayelle Fonseca 
+; Data: 08/06/2025
+;---------------------------------------------------
+; Projeto Neanderwin: Contagem crescente de 1 a 20 e decrescente de 20 a 1
+
+        ORG 0               ; Início do programa na memória
+        
+;  Contagem Crescente de 1 a 20 
+        LDA VAL_INICIO      ; Carrega valor inicial 1 no acumulador
+        
+CONTAGEM_CRES:
+        OUT 0               ; Mostra valor atual do acumulador na saída
+        
+        ADD PASSO_INC       ; Incrementa acumulador em 1
+        SUB LIMITE          ; Subtrai 21 para verificar limite (limite = 21)
+        JN CONTAGEM_CRES    ; Se acumulador < 21 (resultado negativo), continua
+        
+; Quando acumulador >= 21 (resultado não negativo), ajusta acumulador para 20 e inicia contagem decrescente
+        LDA VAL_LIMITE      ; Carrega 20 no acumulador para contagem decrescente
+        
+;  Contagem Decrescente de 20 a 1 
+CONTAGEM_DESC:
+        OUT 0               ; Mostra valor atual do acumulador na saída
+        
+        SUB PASSO_DESC      ; Decrementa acumulador em 1
+        JN FIM             ; Se acumulador negativo, termina
+        JMP CONTAGEM_DESC   ; Senão, continua o loop
+
+FIM:
+        HLT                 ; Finaliza programa
+
+; Dados
+VAL_INICIO: DB 1           ; Valor inicial para contagem crescente
+PASSO_INC:  DB 1           ; Passo de incremento
+LIMITE:     DB 21          ; Limite superior (21 para parar após 20)
+
+VAL_LIMITE: DB 20          ; Valor inicial para contagem decrescente
+PASSO_DESC: DB 1           ; Passo de decremento
